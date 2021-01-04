@@ -1,3 +1,4 @@
+-- main --
 local Stack = {}
 Stack.__index  = Stack
 
