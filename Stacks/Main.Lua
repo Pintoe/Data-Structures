@@ -22,7 +22,7 @@ function Stack.New(Length, ...)
 		MaxSize = Length
 	}, Stack)
 
-	if (...) then _RepeatedPush(NewStack, ...) end
+	if ... then _RepeatedPush(NewStack, ...) end
 
 	return NewStack
 
@@ -30,26 +30,26 @@ end
 
 function Stack:Pop()
 
-	if ( self.IsEmpty ) then return error("Attempt to run :Pop() on an empty stack")end
+	if self.IsEmpty then return error("Attempt to run :Pop() on an empty stack")end
 
 	self.IsFull = ( self.IsFull and false ) or false
 	self.Values[self.Top] = nil
 	self.Top = self.Top - 1
 
-	if ( self.IsFull ) then self.IsFull = false end
+	if self.IsFull then self.IsFull = false end
 end
 
 function Stack:Push(Value, ...)
 
-	if ( self.IsFull ) then return error("Attempt to run :Push() on a full stack") end
+	if self.IsFull then return error("Attempt to run :Push() on a full stack") end
 
 	Value = Value or error("Value not specified")
 
 	self.Top = self.Top + 1
 	self.Values[self.Top] = Value
 
-	if ( self.Empty ) then self.Empty = false end
-	if (...) then _RepeatedPush(self, ...) end
+	if self.Empty then self.Empty = false end
+	if ... then _RepeatedPush(self, ...) end
 
 end
 
