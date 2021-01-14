@@ -36,7 +36,7 @@ function Stack:Pop()
 	self.Values[self.Top] = nil
 	self.Top = self.Top - 1
 
-	if ( self.IsFull ) then self.IsFull = false print("sd") end
+	if ( self.IsFull ) then self.IsFull = false end
 end
 
 function Stack:Push(Value, ...)
