@@ -22,31 +22,31 @@ function Queues.New(Length, ...)
 		MaxSize = Length
 	}, Queues)
 
-	if (...) then _RepeatedEnqueue(NewQueue, ...) end
+	if ... then _RepeatedEnqueue(NewQueue, ...) end
 	
 	return NewQueue
 end
 
 function Queues:Enqueue(Value, ...)	
 
-	if ( self.IsFull ) then return false end
+	if self.IsFull then return false end
 
 	self.Rear = self.Rear + 1
 	self.Queue[self.Rear] = Value
 
-	if ( self.Rear == self.MaxSize ) then self.IsFull = true end 
-	if ( self.IsEmpty ) then 
+	if self.Rear == self.MaxSize then self.IsFull = true end 
+	if self.IsEmpty then 
 		self.IsEmpty, self.Front = false, 1 
 	end
 
-	if (...) then _RepeatedEnqueue(self, ...) end
+	if ... then _RepeatedEnqueue(self, ...) end
 	
 	return true
 end
 
 function Queues:Dequeue()
 
-	if ( self.IsEmpty ) then return false end
+	if self.IsEmpty then return false end
 
 	local ValueToDequeue = self.Queue[self.Front]
 	self.Queue[self.Front] = nil
@@ -82,4 +82,3 @@ function Queues:Peek()
 end
 
 return Queues
- 
