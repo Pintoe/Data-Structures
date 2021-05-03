@@ -18,7 +18,7 @@ function Queues.New(Length, ...)
 		Front = 0,
 		Rear = 0,
 		IsEmpty = true,
-		IsFull = Length == 0 and true or false,
+		IsFull = Length == 0 or false,
 		MaxSize = Length
 	}, Queues)
 
