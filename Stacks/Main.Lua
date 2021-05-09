@@ -1,4 +1,3 @@
--- main --
 local Stack = {}
 Stack.__index  = Stack
 
@@ -10,16 +9,14 @@ local function _RepeatedPush(Table, ...)
 	end
 end
 
-function Stack.New(Length, ...)
-
-	Length = Length or not warn(("Length of stack undefined using DefaultSize : %d"):format(DefaultStackSize)) and DefaultStackSize
+function Stack.New(...)
 
 	local NewStack = setmetatable({
-		Values = table.create(Length),
+		Values = table.create(DefaultStackSize),
 		Top = 0,
 		IsEmpty = true,
-		IsFull = Length == 0 and true or false,
-		MaxSize = Length
+		IsFull = DefaultStackSize == 0 or false,
+		MaxSize = DefaultStackSize
 	}, Stack)
 
 	if (...) then _RepeatedPush(NewStack, ...) end
@@ -30,9 +27,8 @@ end
 
 function Stack:Pop()
 
-	if ( self.IsEmpty ) then return error("Attempt to run :Pop() on an empty stack")end
+	if ( self.IsEmpty ) then return error("Attempt to run :Pop() on an empty stack") end
 
-	self.IsFull = ( self.IsFull and false ) or false
 	self.Values[self.Top] = nil
 	self.Top = self.Top - 1
 
@@ -48,7 +44,7 @@ function Stack:Push(Value, ...)
 	self.Top = self.Top + 1
 	self.Values[self.Top] = Value
 
-	if ( self.Empty ) then self.Empty = false end
+	if ( self.IsEmpty ) then self.IsEmpty = false end
 	if (...) then _RepeatedPush(self, ...) end
 
 end
@@ -58,14 +54,16 @@ function Stack:Iterate()
 	local Values = self.Values
 	local Index = 0
 	local Value
-  
+	
 	return function()
-  
+		
 		Index = Index + 1
 		Value = Values[Index]
-		return Value and Index, Value or nil
-    
+		
+		return Index, Value or nil
+		
 	end
+	
 end
 
 function Stack:Peek()
